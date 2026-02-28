@@ -1,0 +1,212 @@
+---
+import { heroContent } from "../../i18n/home/HeroContent";
+
+type Lang = keyof typeof heroContent; // "en" | "my"
+
+const { lang = "en" } = Astro.props as { lang?: Lang };
+const t = heroContent[lang]; // now `lang` is correctly typed
+---
+
+<section
+  class="py-24 md:py-20 lg:py-32 lg:min-h-screen flex items-center justify-center"
+>
+  <div class="container mx-auto px-4">
+    <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+      <!-- LEFT CONTENT -->
+      <div class="max-w-2xl order-1">
+        <p class="text-xs md:text-sm font-medium text-blue-600 mb-3 md:mb-4">
+          {t.eyebrow}
+        </p>
+
+        <h1
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug"
+        >
+          {t.title}
+        </h1>
+
+        <p class="mt-4 md:mt-6 text-base md:text-lg text-gray-600">
+          {t.description}
+        </p>
+
+        <!-- CTA -->
+        <div class="mt-6 md:mt-8 flex flex-col sm:flex-row gap-3 md:gap-4">
+          <a
+            href={lang === "my" ? "/my/contact" : "/contact"}
+            class="w-full sm:w-auto inline-flex items-center justify-center h-11 md:h-12 px-6 rounded-md bg-blue-600 text-white font-semibold hover:bg-blue-700 transition-colors"
+          >
+            {t.ctaPrimary}
+          </a>
+
+          <a
+            href={lang === "my" ? "/my/portfolio" : "/portfolio"}
+            class="w-full sm:w-auto inline-flex items-center justify-center h-11 md:h-12 px-6 rounded-md border border-gray-300 text-gray-900 font-semibold hover:bg-gray-100 transition"
+          >
+            {t.ctaSecondary}
+          </a>
+        </div>
+
+        <p class="mt-4 md:mt-6 text-xs md:text-sm text-gray-500">
+          {t.trust}
+        </p>
+      </div>
+
+      <!-- RIGHT VISUAL (NOW ALWAYS VISIBLE) -->
+      <div class="order-2">
+        <div
+          class="mt-8 lg:mt-0 rounded-xl border border-gray-200 shadow-md bg-white p-4 md:p-6 relative overflow-hidden max-w-md mx-auto lg:max-w-none"
+        >
+          <div class="shimmer absolute inset-0 pointer-events-none"></div>
+
+          <div class="flex items-center justify-between mb-4 md:mb-6">
+            <div class="h-3 w-24 bg-gray-200 rounded"></div>
+            <div class="text-xs md:text-sm font-semibold text-green-600">
+              <span id="score-number">0</span> / 100
+            </div>
+          </div>
+
+          <div id="performance-panel" class="space-y-4 md:space-y-6">
+            <div>
+              <div class="flex justify-between text-[10px] md:text-xs mb-1">
+                <span>Page Load Speed</span>
+                <span class="text-green-600">
+                  <span class="metric-number" data-target="1.2">0</span>s
+                </span>
+              </div>
+              <div class="h-1.5 md:h-2 bg-gray-100 rounded overflow-hidden">
+                <div
+                  class="progress-bar bg-green-500 h-full rounded"
+                  data-width="85"
+                >
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[10px] md:text-xs mb-1">
+                <span>Layout Stability</span>
+                <span class="text-green-600">
+                  <span class="metric-number" data-target="0.01">0</span>
+                </span>
+              </div>
+              <div class="h-1.5 md:h-2 bg-gray-100 rounded overflow-hidden">
+                <div
+                  class="progress-bar bg-green-500 h-full rounded"
+                  data-width="92"
+                >
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div class="flex justify-between text-[10px] md:text-xs mb-1">
+                <span>Interaction Speed</span>
+                <span class="text-green-600">
+                  <span class="metric-number" data-target="1.8">0</span>s
+                </span>
+              </div>
+              <div class="h-1.5 md:h-2 bg-gray-100 rounded overflow-hidden">
+                <div
+                  class="progress-bar bg-green-500 h-full rounded"
+                  data-width="88"
+                >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Progress animation */
+  .progress-bar {
+    width: 0;
+    transition: width 1.2s ease-out;
+  }
+
+  /* Shimmer effect */
+  .shimmer {
+    background: linear-gradient(
+      120deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 50%,
+      transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: shimmerMove 3s infinite;
+  }
+
+  @keyframes shimmerMove {
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .progress-bar {
+      transition: none;
+    }
+    .shimmer {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const panel = document.getElementById("performance-panel");
+  const scoreEl = document.getElementById("score-number");
+
+  function animateCount(el, target, duration = 1200) {
+    const start = 0;
+    const startTime = performance.now();
+
+    function update(currentTime) {
+      const progress = Math.min((currentTime - startTime) / duration, 1);
+      const value = start + (target - start) * progress;
+      el.textContent =
+        target < 2 ? value.toFixed(2).replace(/\.00$/, "") : Math.floor(value);
+
+      if (progress < 1) {
+        requestAnimationFrame(update);
+      }
+    }
+
+    requestAnimationFrame(update);
+  }
+
+  if (panel) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // Animate progress bars
+            const bars = panel.querySelectorAll(".progress-bar");
+            bars.forEach((bar) => {
+              const target = bar.getAttribute("data-width");
+              bar.style.width = target + "%";
+            });
+
+            // Animate metric numbers
+            const numbers = panel.querySelectorAll(".metric-number");
+            numbers.forEach((num) => {
+              const target = parseFloat(num.getAttribute("data-target"));
+              animateCount(num, target);
+            });
+
+            // Animate score
+            if (scoreEl) {
+              animateCount(scoreEl, 94);
+            }
+
+            observer.disconnect();
+          }
+        });
+      },
+      { threshold: 0.4 },
+    );
+
+    observer.observe(panel);
+  }
+</script>

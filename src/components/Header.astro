@@ -1,0 +1,148 @@
+---
+import LangSwitch from "./LangSwitch.astro";
+import logo from "../assets/images/logo.png";
+
+const pathname = Astro.url.pathname;
+
+const links = [
+  { name: "Home", href: "/" },
+  { name: "Portfolio", href: "/portfolio" },
+  { name: "Pricing", href: "/pricing" },
+  { name: "Contact", href: "/contact" },
+];
+
+const isActive = (href: string) =>
+  href === "/" ? pathname === "/" : pathname.startsWith(href);
+---
+
+<header
+  class="fixed top-0 left-0 right-0 z-[999] bg-white border-b border-gray-200"
+>
+  <div class="h-16 px-4 md:px-12 lg:px-20 flex items-center justify-between">
+    <!-- LOGO -->
+    <a href="/" class="flex items-center">
+      <img src={logo.src} alt="Pixby" class="h-8 w-auto" />
+    </a>
+    <!-- HAMBURGER (Mobile Only) -->
+    <button
+      id="menuBtn"
+      class="md:hidden flex flex-col justify-center gap-1.5 relative z-[1001]"
+      aria-label="Toggle Menu"
+    >
+      <span class="line"></span>
+      <span class="line"></span>
+      <span class="line"></span>
+    </button>
+
+    <!-- DESKTOP NAV -->
+    <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+      {
+        links.map((item) => (
+          <a
+            href={item.href}
+            class={`transition-colors ${
+              isActive(item.href)
+                ? "text-blue-600"
+                : "text-gray-700 hover:text-blue-600"
+            }`}
+          >
+            {item.name}
+          </a>
+        ))
+      }
+      <LangSwitch />
+    </nav>
+  </div>
+
+  <!-- BACKDROP -->
+  <div
+    id="backdrop"
+    class="fixed inset-0 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-300 z-[1000]"
+  >
+  </div>
+
+  <!-- DRAWER -->
+  <div
+    id="drawer"
+    class="fixed top-0 left-0 h-full w-72 bg-white shadow-xl transform -translate-x-full transition-transform duration-300 ease-out z-[1001]"
+  >
+    <div class="p-6 flex flex-col items-start gap-8">
+      <!-- NAV -->
+      <nav class="flex flex-col gap-5 text-base font-medium">
+        <!-- LOGO -->
+        <a href="/" class="flex items-center">
+          <img src={logo.src} alt="Pixby" class="h-8 w-auto" />
+        </a>
+        {
+          links.map((item) => (
+            <a
+              href={item.href}
+              class={`transition-colors ${
+                isActive(item.href)
+                  ? "text-blue-600"
+                  : "text-gray-700 hover:text-blue-600"
+              }`}
+            >
+              {item.name}
+            </a>
+          ))
+        }
+      </nav>
+
+      <LangSwitch />
+    </div>
+  </div>
+</header>
+
+<style>
+  .line {
+    height: 2px;
+    width: 24px;
+    background: #2563eb;
+    transition:
+      transform 0.3s ease,
+      opacity 0.2s ease;
+  }
+
+  .is-open .line:nth-child(1) {
+    transform: translateY(10px) rotate(45deg);
+  }
+
+  .is-open .line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .is-open .line:nth-child(3) {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+</style>
+
+<script is:inline>
+  const menuBtn = document.getElementById("menuBtn");
+  const drawer = document.getElementById("drawer");
+  const backdrop = document.getElementById("backdrop");
+
+  function openDrawer() {
+    drawer.classList.remove("-translate-x-full");
+    backdrop.classList.remove("opacity-0", "pointer-events-none");
+    menuBtn.classList.add("is-open");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeDrawer() {
+    drawer.classList.add("-translate-x-full");
+    backdrop.classList.add("opacity-0", "pointer-events-none");
+    menuBtn.classList.remove("is-open");
+    document.body.style.overflow = "";
+  }
+
+  menuBtn.addEventListener("click", () => {
+    if (drawer.classList.contains("-translate-x-full")) {
+      openDrawer();
+    } else {
+      closeDrawer();
+    }
+  });
+
+  backdrop.addEventListener("click", closeDrawer);
+</script>

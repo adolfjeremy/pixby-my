@@ -1,0 +1,35 @@
+---
+import { problemContent } from "../../i18n/home/Problem";
+type Lang = keyof typeof problemContent; // "en" | "my"
+
+const { lang = "en" } = Astro.props as { lang?: Lang };
+const t = problemContent[lang]; // now `lang` is correctly typed
+---
+
+<section class="py-16 md:py-24 bg-gray-50">
+  <div class="container mx-auto px-4">
+    <!-- HEADER -->
+    <div class="max-w-3xl mx-auto text-center">
+      <h2 class="text-2xl md:text-3xl lg:text-4xl font-semibold leading-snug">
+        {t.title}
+      </h2>
+
+      <p class="mt-4 text-gray-600 text-base md:text-lg">
+        {t.intro}
+      </p>
+    </div>
+
+    <!-- PROBLEM GRID -->
+    <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        t.problems.map((item) => (
+          <div class="bg-white p-6 rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="font-semibold text-lg mb-3">{item.title}</h3>
+
+            <p class="text-sm text-gray-600 leading-relaxed">{item.desc}</p>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
