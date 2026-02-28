@@ -1,0 +1,137 @@
+---
+import { portofolioContent } from "../../i18n/home/Portofolio";
+type Lang = keyof typeof portofolioContent; // "en" | "my"
+const { lang = "en" } = Astro.props as { lang?: Lang };
+
+const t = portofolioContent[lang];
+import bappImg from "../../assets/images/bapp.png";
+---
+
+<section class="relative py-28 bg-white overflow-hidden">
+  <div class="container mx-auto px-4">
+    <!-- HEADER -->
+    <div class="max-w-3xl">
+      <p class="text-sm font-semibold tracking-wider text-blue-600 uppercase">
+        {t.eyebrow}
+      </p>
+
+      <h2
+        class="mt-4 text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight text-[#0f172a]"
+      >
+        {t.title}
+      </h2>
+
+      <p class="mt-6 text-gray-600 text-base md:text-lg">
+        {t.intro}
+      </p>
+    </div>
+
+    <!-- FEATURED CASE -->
+    <div
+      class="mt-20 grid lg:grid-cols-2 gap-16 items-center mt-16 group relative rounded-2xl overflow-hidden bg-[#0f172a] text-white p-10 md:p-16"
+    >
+      <!-- LEFT CONTENT -->
+      <div>
+        <p
+          class="text-sm font-semibold tracking-widest text-blue-400 uppercase"
+        >
+          {t.caseLabel}
+        </p>
+
+        <h3 class="mt-4 text-3xl font-bold text-white">
+          {t.caseTitle}
+        </h3>
+
+        <p class="mt-6 leading-relaxed max-w-lg text-gray-300">
+          {t.caseDesc}
+        </p>
+
+        <!-- Metrics -->
+        <div class="mt-8 flex flex-wrap gap-6 text-sm text-gray-300">
+          <span>Performance Score 93+</span>
+          <span>Mobile Optimized</span>
+          <span>SEO Structured</span>
+        </div>
+
+        <div class="mt-10">
+          <a
+            href="#"
+            class="inline-flex items-center gap-2 text-blue-400 font-semibold group"
+          >
+            View Case Study
+            <span class="transition-transform group-hover:translate-x-1">→</span
+            >
+          </a>
+        </div>
+      </div>
+
+      <!-- RIGHT VISUAL -->
+      <div class="relative">
+        <!-- Soft background glow -->
+        <div
+          class="absolute -inset-6 bg-white-50 rounded-2xl blur-2xl opacity-20"
+        >
+        </div>
+
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 group"
+        >
+          <!-- Browser Bar -->
+          <div
+            class="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b border-gray-200"
+          >
+            <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-green-400 rounded-full"></span>
+          </div>
+
+          <!-- Screenshot -->
+          <img
+            src={bappImg.src}
+            alt="Featured Project Preview"
+            class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- SECONDARY PROJECTS -->
+    <div class="mt-24 grid md:grid-cols-2 gap-10">
+      <div
+        class="group rounded-xl p-8 bg-[#f8fafc] hover:bg-gray-100 transition-colors"
+      >
+        <h4
+          class="text-xl font-semibold text-[#0f172a] group-hover:text-blue-600 transition-colors"
+        >
+          ILove Clinic Website
+        </h4>
+        <p class="mt-4 text-gray-600 text-sm max-w-md">
+          Medical-focused website structured for clarity and patient trust.
+        </p>
+      </div>
+
+      <div
+        class="group rounded-xl p-8 bg-[#f8fafc] hover:bg-gray-100 transition-colors"
+      >
+        <h4
+          class="text-xl font-semibold text-[#0f172a] group-hover:text-blue-600 transition-colors"
+        >
+          Veery Corporate Site
+        </h4>
+        <p class="mt-4 text-gray-600 text-sm max-w-md">
+          Lightweight corporate website optimized for fast performance.
+        </p>
+      </div>
+    </div>
+
+    <!-- VIEW ALL -->
+    <div class="mt-16">
+      <a
+        href={lang === "my" ? "/my/portfolio" : "/portfolio"}
+        class="text-blue-600 font-semibold hover:underline"
+      >
+        {t.viewAll}
+      </a>
+    </div>
+  </div>
+</section>

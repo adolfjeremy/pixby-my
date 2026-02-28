@@ -8,9 +8,13 @@ const t = heroContent[lang]; // now `lang` is correctly typed
 ---
 
 <section
-  class="py-24 md:py-20 lg:py-32 lg:min-h-screen flex items-center justify-center"
+  class="py-24 md:py-20 lg:py-32 lg:min-h-screen flex items-center justify-center relative overflow-hidden bg-white"
 >
-  <div class="container mx-auto px-4">
+  <div
+    class="absolute inset-0 bg-gradient-to-br from-blue-50 to-transparent pointer-events-none"
+  >
+  </div>
+  <div class="container mx-auto px-4 relative">
     <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
       <!-- LEFT CONTENT -->
       <div class="max-w-2xl order-1">
@@ -19,7 +23,7 @@ const t = heroContent[lang]; // now `lang` is correctly typed
         </p>
 
         <h1
-          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold leading-snug"
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight leading-snug"
         >
           {t.title}
         </h1>
@@ -51,7 +55,7 @@ const t = heroContent[lang]; // now `lang` is correctly typed
       </div>
 
       <!-- RIGHT VISUAL (NOW ALWAYS VISIBLE) -->
-      <div class="order-2">
+      <div class="order-2 shadow-xl">
         <div
           class="mt-8 lg:mt-0 rounded-xl border border-gray-200 shadow-md bg-white p-4 md:p-6 relative overflow-hidden max-w-md mx-auto lg:max-w-none"
         >
