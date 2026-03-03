@@ -5,6 +5,8 @@ const { lang = "en" } = Astro.props as { lang?: Lang };
 
 const t = portofolioContent[lang];
 import bappImg from "../../assets/images/bapp.png";
+import ideatax from "../../assets/images/ideatax.png";
+import siapSukses from "../../assets/images/siap-sukses.png";
 ---
 
 <section class="relative py-28 bg-white overflow-hidden">
@@ -96,31 +98,96 @@ import bappImg from "../../assets/images/bapp.png";
     </div>
 
     <!-- SECONDARY PROJECTS -->
+    <!-- SECONDARY PROJECTS -->
     <div class="mt-24 grid md:grid-cols-2 gap-10">
+      <!-- PROJECT 1 -->
       <div
-        class="group rounded-xl p-8 bg-[#f8fafc] hover:bg-gray-100 transition-colors"
+        class="group relative rounded-2xl overflow-hidden border border-gray-200 shadow-lg bg-white transition-all duration-300 hover:shadow-2xl"
       >
-        <h4
-          class="text-xl font-semibold text-[#0f172a] group-hover:text-blue-600 transition-colors"
+        <!-- Screenshot -->
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 group"
         >
-          ILove Clinic Website
-        </h4>
-        <p class="mt-4 text-gray-600 text-sm max-w-md">
-          Medical-focused website structured for clarity and patient trust.
-        </p>
+          <!-- Browser Bar -->
+          <div
+            class="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b border-gray-200"
+          >
+            <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-green-400 rounded-full"></span>
+          </div>
+
+          <!-- Screenshot -->
+          <img
+            src={ideatax.src}
+            alt="Featured Project Preview"
+            class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <h4
+            class="text-xl font-semibold text-[#0f172a] group-hover:text-blue-600 transition-colors"
+          >
+            ILove Clinic Website
+          </h4>
+
+          <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+            Medical-focused website structured for clarity, patient trust, and
+            optimized mobile performance.
+          </p>
+
+          <div class="mt-5 flex flex-wrap gap-4 text-xs text-gray-500">
+            <span>Performance 91+</span>
+            <span>Mobile Optimized</span>
+          </div>
+        </div>
       </div>
 
+      <!-- PROJECT 2 -->
       <div
-        class="group rounded-xl p-8 bg-[#f8fafc] hover:bg-gray-100 transition-colors"
+        class="group relative rounded-2xl overflow-hidden border border-gray-200 shadow-lg bg-white transition-all duration-300 hover:shadow-2xl"
       >
-        <h4
-          class="text-xl font-semibold text-[#0f172a] group-hover:text-blue-600 transition-colors"
+        <!-- Screenshot -->
+        <div
+          class="relative rounded-2xl overflow-hidden shadow-xl border border-gray-200 group"
         >
-          Veery Corporate Site
-        </h4>
-        <p class="mt-4 text-gray-600 text-sm max-w-md">
-          Lightweight corporate website optimized for fast performance.
-        </p>
+          <!-- Browser Bar -->
+          <div
+            class="flex items-center gap-2 px-4 py-3 bg-gray-100 border-b border-gray-200"
+          >
+            <span class="w-3 h-3 bg-red-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-yellow-400 rounded-full"></span>
+            <span class="w-3 h-3 bg-green-400 rounded-full"></span>
+          </div>
+
+          <!-- Screenshot -->
+          <img
+            src={siapSukses.src}
+            alt="Featured Project Preview"
+            class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+          />
+        </div>
+
+        <!-- Content -->
+        <div class="p-6">
+          <h4
+            class="text-xl font-semibold text-[#0f172a] group-hover:text-blue-600 transition-colors"
+          >
+            Veery Corporate Site
+          </h4>
+
+          <p class="mt-3 text-gray-600 text-sm leading-relaxed">
+            Lightweight corporate website optimized for speed, SEO structure,
+            and clean user journey.
+          </p>
+
+          <div class="mt-5 flex flex-wrap gap-4 text-xs text-gray-500">
+            <span>Performance 92+</span>
+            <span>SEO Structured</span>
+          </div>
+        </div>
       </div>
     </div>
 

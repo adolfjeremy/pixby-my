@@ -162,11 +162,11 @@ const t = heroContent[lang]; // now `lang` is correctly typed
   const panel = document.getElementById("performance-panel");
   const scoreEl = document.getElementById("score-number");
 
-  function animateCount(el, target, duration = 1200) {
+  function animateCount(el: any, target: any, duration = 1200) {
     const start = 0;
     const startTime = performance.now();
 
-    function update(currentTime) {
+    function update(currentTime: any) {
       const progress = Math.min((currentTime - startTime) / duration, 1);
       const value = start + (target - start) * progress;
       el.textContent =
