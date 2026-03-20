@@ -1,5 +1,6 @@
 export const problemContent = {
   en: {
+    eyebrow: "The Problem",
     title: "Most Business Websites Underperform — Even If They Look Fine",
     intro:
       "Many SME websites in Malaysia appear professional on the surface, but struggle where it truly matters: speed, structure, and conversion.",
@@ -23,6 +24,7 @@ export const problemContent = {
     ],
   },
   my: {
+    eyebrow: "Masalah",
     title: "Kebanyakan Laman Web Perniagaan Kurang Berprestasi",
     intro:
       "Ramai PKS di Malaysia mempunyai laman web yang nampak profesional, tetapi lemah dari segi prestasi dan penukaran.",
